@@ -1,7 +1,5 @@
-import { Document } from 'mongoose';
-
-export interface IUser extends Document {
-  _id: string;
+export interface IUser {
+  _id?: string;
   email: string;
   password: string;
   name: string;
@@ -10,8 +8,8 @@ export interface IUser extends Document {
   updatedAt: Date;
 }
 
-export interface ITest extends Document {
-  _id: string;
+export interface ITest {
+  _id?: string;
   userId: string;
   testName: string;
   coaching: 'Allen' | 'Aakash' | 'PW' | 'PW NRTS' | 'NTA NEET';
@@ -53,8 +51,8 @@ export interface ITest extends Document {
   updatedAt: Date;
 }
 
-export interface ISubjectPerformance extends Document {
-  _id: string;
+export interface ISubjectPerformance {
+  _id?: string;
   userId: string;
   testId: string;
   subject: 'physics' | 'chemistry' | 'biology';
@@ -66,8 +64,8 @@ export interface ISubjectPerformance extends Document {
   createdAt: Date;
 }
 
-export interface IMistakeLog extends Document {
-  _id: string;
+export interface IMistakeLog {
+  _id?: string;
   userId: string;
   testId: string;
   mistakeType: 'conceptual' | 'silly' | 'guessing';
@@ -77,8 +75,8 @@ export interface IMistakeLog extends Document {
   createdAt: Date;
 }
 
-export interface IAnalyticsSummary extends Document {
-  _id: string;
+export interface IAnalyticsSummary {
+  _id?: string;
   userId: string;
   totalTestsAttempted: number;
   averageScore: number;

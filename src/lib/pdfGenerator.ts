@@ -20,8 +20,8 @@ interface TestData {
   testName: string;
   coaching: string;
   date: string;
-  totalMarksObtained: number;
-  overallPercentile: number;
+  totalMarksObtained?: number;
+  overallPercentile?: number;
   estimatedAIR?: number;
   subjectWiseMarks?: {
     physics: { obtained: number; total: number };
@@ -241,8 +241,8 @@ export function generateOverallReportPDF(
     const testData = tests.slice(0, 10).map((test) => [
       test.testName.substring(0, 14),
       new Date(test.date).toLocaleDateString('en-IN'),
-      `${test.totalMarksObtained}`,
-      `${test.overallPercentile.toFixed(1)}%`,
+      `${test.totalMarksObtained ?? 0}`,
+      `${(test.overallPercentile ?? 0).toFixed(1)}%`,
       test.estimatedAIR && test.estimatedAIR !== 999999
         ? `#${(test.estimatedAIR / 1000).toFixed(0)}K`
         : '-',
@@ -311,8 +311,8 @@ export function generateTestReportPDF(test: TestData, userName: string): void {
 
   const performanceHeaders = ['Metric', 'Value'];
   const performanceData = [
-    ['Total Score', `${test.totalMarksObtained} / 720`],
-    ['Overall Percentile', `${test.overallPercentile.toFixed(2)}%`],
+    ['Total Score', `${test.totalMarksObtained ?? 0} / 720`],
+    ['Overall Percentile', `${(test.overallPercentile ?? 0).toFixed(2)}%`],
     [
       'Estimated AIR',
       test.estimatedAIR && test.estimatedAIR !== 999999
@@ -374,10 +374,12 @@ export function generateTestReportPDF(test: TestData, userName: string): void {
     yPosition += 7;
 
     const timeHeaders = ['Metric', 'Value'];
+    const timeTaken = test.timeTaken ?? 0;
+    const totalMarks = test.totalMarksObtained ?? 0;
     const timeData = [
-      ['Total Time', `${test.timeTaken} min`],
-      ['Avg per Question', `${((test.timeTaken * 60) / 200).toFixed(1)} sec`],
-      ['Efficiency', `${(test.totalMarksObtained / test.timeTaken).toFixed(2)} marks/min`],
+      ['Total Time', `${timeTaken} min`],
+      ['Avg per Question', `${timeTaken > 0 ? ((timeTaken * 60) / 200).toFixed(1) : '0'} sec`],
+      ['Efficiency', `${timeTaken > 0 ? (totalMarks / timeTaken).toFixed(2) : '0'} marks/min`],
     ];
 
     yPosition = drawTable(doc, yPosition, timeHeaders, timeData, [95, 40], margin);
