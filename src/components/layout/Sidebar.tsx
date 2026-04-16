@@ -84,7 +84,7 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed right-0 top-0 h-screen w-64 bg-white border-l border-gray-200 p-4 md:p-6 transition-all duration-300 transform z-40 ${
+        className={`fixed right-0 top-0 h-screen w-64 bg-white border-l border-gray-200 p-4 md:p-6 transition-all duration-300 transform z-40 flex flex-col ${
           isOpen ? 'translate-x-0 shadow-lg' : 'translate-x-full md:translate-x-0 md:shadow-none'
         }`}
       >
@@ -97,7 +97,7 @@ export default function Sidebar() {
         </div>
 
         {/* Menu */}
-        <nav className="space-y-1">
+        <nav className="space-y-1 flex-1">
           {menuItems.map((item) => (
             <Link
               key={item.href}
@@ -115,7 +115,7 @@ export default function Sidebar() {
         </nav>
 
         {/* Logout Button */}
-        <div className="absolute bottom-6 left-4 right-4 md:left-6 md:right-6">
+        <div className="pt-4 border-t border-gray-200 mt-auto">
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-sm bg-gray-100 text-gray-700 hover:bg-gray-200 active:scale-95 transition-all duration-200 font-medium"
