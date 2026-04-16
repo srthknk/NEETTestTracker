@@ -175,16 +175,16 @@ export default function TestsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-gray-200 pb-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-gray-200 pb-4 md:pb-6 gap-4 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-black mb-2">Tests</h1>
-          <p className="text-gray-600">Manage your NEET practice tests</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-black mb-1 md:mb-2">Tests</h1>
+          <p className="text-xs sm:text-sm md:text-base text-gray-600">Manage your NEET practice tests</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-start min-h-10"
         >
           <FontAwesomeIcon icon={faPlus} />
           Add Test
@@ -214,106 +214,178 @@ export default function TestsPage() {
         </div>
       )}
 
-      {/* Tests Table */}
+      {/* Tests Table (Desktop) / Cards (Mobile) */}
       {!loading && tests.length > 0 && (
-        <div className="card overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-200">
-                <th className="text-left py-3 px-4 font-semibold text-black">
-                  Coaching
-                </th>
-                <th className="text-left py-3 px-4 font-semibold text-black">
-                  Test Name
-                </th>
-                <th className="text-left py-3 px-4 font-semibold text-black">
-                  Date
-                </th>
-                <th className="text-left py-3 px-4 font-semibold text-black">
-                  Marks
-                </th>
-                <th className="text-left py-3 px-4 font-semibold text-black">
-                  Accuracy
-                </th>
-                <th className="text-left py-3 px-4 font-semibold text-black">
-                  Time
-                </th>
-                <th className="text-center py-3 px-4 font-semibold text-black">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {tests.map((test) => (
-                <tr
-                  key={test._id}
-                  className="border-b border-gray-200 hover:bg-gray-50"
-                >
-                  <td className="py-3 px-4">
-                    <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0">
-                      <img
-                        src={COACHING_LOGOS[test.coaching as keyof typeof COACHING_LOGOS]}
-                        alt={test.coaching}
-                        className="w-full h-full object-contain p-1"
-                        title={test.coaching}
-                      />
-                    </div>
-                  </td>
-                  <td className="py-3 px-4 text-black font-medium">
-                    {test.testName}
-                  </td>
-                  <td className="py-3 px-4 text-gray-600">
-                    {new Date(test.date).toLocaleDateString()}
-                  </td>
-                  <td className="py-3 px-4 text-black font-semibold">
-                    {(test.totalMarksObtained ?? test.marksObtained ?? 0)}/{test.totalMarks ?? 720}
-                  </td>
-                  <td className="py-3 px-4 text-black">
-                    {(test.overallPercentile ?? test.accuracy ?? 0).toFixed(1)}%
-                  </td>
-                  <td className="py-3 px-4 text-gray-600">
-                    {test.timeTaken} min
-                  </td>
-                  <td className="py-3 px-4 text-center">
-                    <button
-                      onClick={() => setEditingTest(test)}
-                      className="text-gray-600 hover:text-black mr-3 transition-colors"
-                      title="Edit"
-                    >
-                      <FontAwesomeIcon icon={faPencil} />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteTest(test._id)}
-                      className="text-gray-600 hover:text-red-600 transition-colors"
-                      title="Delete"
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </button>
-                  </td>
+        <>
+          {/* Desktop Table */}
+          <div className="hidden lg:block card overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-3 px-3 font-semibold text-black">
+                    Coaching
+                  </th>
+                  <th className="text-left py-3 px-3 font-semibold text-black">
+                    Test Name
+                  </th>
+                  <th className="text-left py-3 px-3 font-semibold text-black">
+                    Date
+                  </th>
+                  <th className="text-left py-3 px-3 font-semibold text-black">
+                    Marks
+                  </th>
+                  <th className="text-left py-3 px-3 font-semibold text-black">
+                    Accuracy
+                  </th>
+                  <th className="text-left py-3 px-3 font-semibold text-black">
+                    Time
+                  </th>
+                  <th className="text-center py-3 px-3 font-semibold text-black">
+                    Actions
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {tests.map((test) => (
+                  <tr
+                    key={test._id}
+                    className="border-b border-gray-200 hover:bg-gray-50"
+                  >
+                    <td className="py-3 px-3">
+                      <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <img
+                          src={COACHING_LOGOS[test.coaching as keyof typeof COACHING_LOGOS]}
+                          alt={test.coaching}
+                          className="w-full h-full object-contain p-1"
+                          title={test.coaching}
+                        />
+                      </div>
+                    </td>
+                    <td className="py-3 px-3 text-black font-medium text-sm truncate">
+                      {test.testName}
+                    </td>
+                    <td className="py-3 px-3 text-gray-600 text-sm">
+                      {new Date(test.date).toLocaleDateString()}
+                    </td>
+                    <td className="py-3 px-3 text-black font-semibold text-sm">
+                      {(test.totalMarksObtained ?? test.marksObtained ?? 0)}/{test.totalMarks ?? 720}
+                    </td>
+                    <td className="py-3 px-3 text-black text-sm">
+                      {(test.overallPercentile ?? test.accuracy ?? 0).toFixed(1)}%
+                    </td>
+                    <td className="py-3 px-3 text-gray-600 text-sm">
+                      {test.timeTaken} min
+                    </td>
+                    <td className="py-3 px-3 text-center">
+                      <button
+                        onClick={() => setEditingTest(test)}
+                        className="text-gray-600 hover:text-black mr-2 md:mr-3 transition-colors active:scale-90 p-1"
+                        title="Edit"
+                      >
+                        <FontAwesomeIcon icon={faPencil} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteTest(test._id)}
+                        className="text-gray-600 hover:text-red-600 transition-colors active:scale-90 p-1"
+                        title="Delete"
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile/Tablet Cards */}
+          <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+            {tests.map((test) => (
+              <div
+                key={test._id}
+                className="p-3 md:p-4 bg-white border border-gray-200 rounded-sm hover:border-black hover:shadow-md transition-all"
+              >
+                <div className="flex items-start gap-2 md:gap-3 mb-3">
+                  <div className="w-8 md:w-10 h-8 md:h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0">
+                    <img
+                      src={COACHING_LOGOS[test.coaching as keyof typeof COACHING_LOGOS]}
+                      alt={test.coaching}
+                      className="w-full h-full object-contain p-1"
+                      title={test.coaching}
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-black text-sm md:text-base truncate">
+                      {test.testName}
+                    </p>
+                    <p className="text-xs md:text-sm text-gray-600">
+                      {new Date(test.date).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-2 mb-3">
+                  <div className="flex items-center justify-between text-xs md:text-sm">
+                    <span className="text-gray-600">Marks</span>
+                    <span className="font-semibold text-black">
+                      {(test.totalMarksObtained ?? test.marksObtained ?? 0)}/{test.totalMarks ?? 720}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs md:text-sm">
+                    <span className="text-gray-600">Accuracy</span>
+                    <span className="font-semibold text-black">
+                      {(test.overallPercentile ?? test.accuracy ?? 0).toFixed(1)}%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs md:text-sm">
+                    <span className="text-gray-600">Time</span>
+                    <span className="font-semibold text-black">
+                      {test.timeTaken} min
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex gap-2 pt-2 border-t border-gray-200">
+                  <button
+                    onClick={() => setEditingTest(test)}
+                    className="flex-1 py-2 px-2 bg-gray-100 text-gray-600 hover:bg-gray-200 active:bg-gray-300 transition-colors rounded-sm text-xs font-medium flex items-center justify-center gap-1"
+                    title="Edit"
+                  >
+                    <FontAwesomeIcon icon={faPencil} className="w-3 h-3" />
+                    <span>Edit</span>
+                  </button>
+                  <button
+                    onClick={() => handleDeleteTest(test._id)}
+                    className="flex-1 py-2 px-2 bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-600 active:bg-red-200 transition-colors rounded-sm text-xs font-medium flex items-center justify-center gap-1"
+                    title="Delete"
+                  >
+                    <FontAwesomeIcon icon={faTrash} className="w-3 h-3" />
+                    <span>Delete</span>
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
           <button
             onClick={() => setPage(Math.max(1, page - 1))}
             disabled={page === 1}
-            className="btn-secondary disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+            className="btn-secondary disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed w-full sm:w-auto"
           >
             Previous
           </button>
-          <span className="text-gray-600">
+          <span className="text-sm text-gray-600">
             Page {page} of {totalPages}
           </span>
           <button
             onClick={() => setPage(Math.min(totalPages, page + 1))}
             disabled={page === totalPages}
-            className="btn-secondary disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+            className="btn-secondary disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed w-full sm:w-auto"
           >
             Next
           </button>

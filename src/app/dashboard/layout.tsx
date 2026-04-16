@@ -35,10 +35,12 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex h-screen bg-white">
+    <div className="flex min-h-screen bg-white">
       <Sidebar />
-      <main className="flex-1 ml-0 md:ml-64 overflow-auto bg-white">
-        <div className="p-6 md:p-8">{children}</div>
+      <main className="flex-1 w-full md:ml-64 overflow-auto">
+        <div className="px-4 py-6 sm:px-6 md:px-8 md:py-8 max-w-7xl mx-auto w-full">
+          {children}
+        </div>
       </main>
     </div>
   );

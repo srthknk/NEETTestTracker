@@ -129,44 +129,44 @@ export default function ReportsPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-gray-200 pb-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-gray-200 pb-4 md:pb-6 gap-4 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-black mb-2">Reports</h1>
-          <p className="text-gray-600">
+          <h1 className="text-2xl sm:text-3xl font-bold text-black mb-1 md:mb-2">Reports</h1>
+          <p className="text-xs sm:text-sm md:text-base text-gray-600">
             Generate and download detailed reports
           </p>
         </div>
         <button
           onClick={downloadReport}
           disabled={!analytics || analytics.totalTestsAttempted === 0}
-          className="btn-primary flex items-center gap-2 disabled:bg-gray-400"
+          className="btn-primary flex items-center gap-2 disabled:bg-gray-400 w-full sm:w-auto justify-center sm:justify-start"
         >
           <FontAwesomeIcon icon={faDownload} />
-          Download Overall Report
+          Download Report
         </button>
       </div>
 
       {/* Overall Summary Report */}
       {analytics && analytics.totalTestsAttempted > 0 && (
         <div className="card">
-          <h2 className="text-xl font-semibold text-black mb-6">
+          <h2 className="text-lg md:text-xl font-semibold text-black mb-4 md:mb-6">
             <FontAwesomeIcon icon={faFileAlt} className="mr-2" />
             Overall Performance Report
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <div className="border-l-4 border-black pl-4">
-              <p className="text-gray-600 text-sm mb-1">Total Tests</p>
-              <p className="text-3xl font-bold text-black">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-6 mb-4 md:mb-6">
+            <div className="border-l-4 border-black pl-3 md:pl-4">
+              <p className="text-xs text-gray-600 mb-1">Total Tests</p>
+              <p className="text-xl md:text-3xl font-bold text-black">
                 {analytics.totalTestsAttempted}
               </p>
             </div>
 
-            <div className="border-l-4 border-gray-400 pl-4">
-              <p className="text-gray-600 text-sm mb-1">Average Score</p>
-              <p className="text-3xl font-bold text-black">
+            <div className="border-l-4 border-gray-400 pl-3 md:pl-4">
+              <p className="text-xs text-gray-600 mb-1">Average Score</p>
+              <p className="text-xl md:text-3xl font-bold text-black">
                 {analytics.averageScore.toFixed(0)}
               </p>
               <p className="text-xs text-gray-500">
@@ -174,46 +174,46 @@ export default function ReportsPage() {
               </p>
             </div>
 
-            <div className="border-l-4 border-gray-600 pl-4">
-              <p className="text-gray-600 text-sm mb-1">Overall Accuracy</p>
-              <p className="text-3xl font-bold text-black">
+            <div className="border-l-4 border-gray-600 pl-3 md:pl-4">
+              <p className="text-xs text-gray-600 mb-1">Overall Accuracy</p>
+              <p className="text-xl md:text-3xl font-bold text-black">
                 {analytics.overallAccuracy.toFixed(1)}%
               </p>
             </div>
           </div>
 
-          <div className="border-t border-gray-200 pt-6">
-            <h3 className="text-lg font-semibold text-black mb-4">
+          <div className="border-t border-gray-200 pt-4 md:pt-6">
+            <h3 className="text-base md:text-lg font-semibold text-black mb-3 md:mb-4">
               Subject-wise Breakdown
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 bg-gray-50 rounded-sm border border-gray-200">
-                <h4 className="font-semibold text-black mb-2">Physics</h4>
-                <p className="text-2xl font-bold text-black mb-1">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
+              <div className="p-2 md:p-4 bg-gray-50 rounded-sm border border-gray-200">
+                <h4 className="font-semibold text-black mb-1 md:mb-2 text-sm md:text-base">Physics</h4>
+                <p className="text-lg md:text-2xl font-bold text-black mb-1">
                   {analytics.subjectWisePerformance.physics.toFixed(1)}%
                 </p>
                 <p className="text-xs text-gray-600">Accuracy</p>
               </div>
 
-              <div className="p-4 bg-gray-50 rounded-sm border border-gray-200">
-                <h4 className="font-semibold text-black mb-2">Chemistry</h4>
-                <p className="text-2xl font-bold text-black mb-1">
+              <div className="p-2 md:p-4 bg-gray-50 rounded-sm border border-gray-200">
+                <h4 className="font-semibold text-black mb-1 md:mb-2 text-sm md:text-base">Chemistry</h4>
+                <p className="text-lg md:text-2xl font-bold text-black mb-1">
                   {analytics.subjectWisePerformance.chemistry.toFixed(1)}%
                 </p>
                 <p className="text-xs text-gray-600">Accuracy</p>
               </div>
 
-              <div className="p-4 bg-gray-50 rounded-sm border border-gray-200">
-                <h4 className="font-semibold text-black mb-2">Botany</h4>
-                <p className="text-2xl font-bold text-black mb-1">
+              <div className="p-2 md:p-4 bg-gray-50 rounded-sm border border-gray-200">
+                <h4 className="font-semibold text-black mb-1 md:mb-2 text-sm md:text-base">Botany</h4>
+                <p className="text-lg md:text-2xl font-bold text-black mb-1">
                   {analytics.subjectWisePerformance.botany.toFixed(1)}%
                 </p>
                 <p className="text-xs text-gray-600">Accuracy</p>
               </div>
 
-              <div className="p-4 bg-gray-50 rounded-sm border border-gray-200">
-                <h4 className="font-semibold text-black mb-2">Zoology</h4>
-                <p className="text-2xl font-bold text-black mb-1">
+              <div className="p-2 md:p-4 bg-gray-50 rounded-sm border border-gray-200">
+                <h4 className="font-semibold text-black mb-1 md:mb-2 text-sm md:text-base">Zoology</h4>
+                <p className="text-lg md:text-2xl font-bold text-black mb-1">
                   {analytics.subjectWisePerformance.zoology.toFixed(1)}%
                 </p>
                 <p className="text-xs text-gray-600">Accuracy</p>
@@ -225,51 +225,51 @@ export default function ReportsPage() {
 
       {/* Individual Test Reports */}
       {tests.length > 0 && (
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-black">Individual Test Reports</h2>
+        <div className="space-y-3 md:space-y-4">
+          <h2 className="text-xl md:text-2xl font-bold text-black">Individual Test Reports</h2>
 
           {tests.map((test) => (
             <div key={test._id} className="card hover:border-gray-400 transition-colors">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-black mb-2">
+              <div className="flex flex-col sm:flex-row items-start sm:items-start justify-between gap-3 sm:gap-4">
+                <div className="flex-1 w-full min-w-0">
+                  <h3 className="text-base md:text-lg font-semibold text-black mb-2 truncate">
                     {test.testName}
                   </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 mb-2">
                     <div>
                       <p className="text-xs text-gray-600">Date</p>
-                      <p className="font-medium text-black">
+                      <p className="font-medium text-black text-sm">
                         {new Date(test.date).toLocaleDateString()}
                       </p>
                     </div>
                     <div>
                       <p className="text-xs text-gray-600">Score</p>
-                      <p className="font-medium text-black">
+                      <p className="font-medium text-black text-sm">
                         {test.totalMarksObtained ?? test.marksObtained ?? 0}/720
                       </p>
                     </div>
                     <div>
                       <p className="text-xs text-gray-600">Percentile</p>
-                      <p className="font-medium text-black">
+                      <p className="font-medium text-black text-sm">
                         {(test.overallPercentile ?? test.accuracy ?? 0).toFixed(1)}%
                       </p>
                     </div>
                     <div>
                       <p className="text-xs text-gray-600">AIR</p>
-                      <p className="font-medium text-black">
+                      <p className="font-medium text-black text-sm">
                         {test.estimatedAIR && test.estimatedAIR !== 999999
                           ? test.estimatedAIR.toLocaleString('en-IN')
                           : 'N/A'}
                       </p>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-xs md:text-sm text-gray-600">
                     Coaching: {test.coaching || 'N/A'} | Time: {test.timeTaken} min
                   </p>
                 </div>
                 <button
                   onClick={() => downloadTestReport(test)}
-                  className="btn-secondary flex items-center gap-2 whitespace-nowrap ml-4"
+                  className="btn-secondary flex items-center gap-2 whitespace-nowrap w-full sm:w-auto justify-center sm:justify-start text-sm"
                 >
                   <FontAwesomeIcon icon={faDownload} />
                   Download
@@ -282,7 +282,7 @@ export default function ReportsPage() {
 
       {tests.length === 0 && (
         <div className="card text-center py-12">
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-sm md:text-base">
             No tests found. Add tests to generate reports!
           </p>
         </div>

@@ -126,74 +126,74 @@ export default function AnalyticsPage() {
     : [];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {/* Header */}
-      <div className="border-b border-gray-200 pb-6">
-        <h1 className="text-3xl font-bold text-black mb-2">Analytics</h1>
-        <p className="text-gray-600">
+      <div className="border-b border-gray-200 pb-4 md:pb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-black mb-1 md:mb-2">Analytics</h1>
+        <p className="text-xs sm:text-sm md:text-base text-gray-600">
           Deep dive into your performance metrics and trends
         </p>
       </div>
 
       {/* Key Metrics */}
       {analytics && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           <div className="card">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm mb-1">Total Tests</p>
-                <p className="text-2xl font-bold text-black">
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-gray-600 mb-1">Total Tests</p>
+                <p className="text-lg md:text-2xl font-bold text-black">
                   {analytics.totalTestsAttempted}
                 </p>
               </div>
               <FontAwesomeIcon
                 icon={faChartLine}
-                className="text-2xl text-gray-400"
+                className="text-lg md:text-2xl text-gray-400 ml-2 flex-shrink-0"
               />
             </div>
           </div>
 
           <div className="card">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm mb-1">Average Accuracy</p>
-                <p className="text-2xl font-bold text-black">
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-gray-600 mb-1">Avg Accuracy</p>
+                <p className="text-lg md:text-2xl font-bold text-black">
                   {analytics.overallAccuracy.toFixed(1)}%
                 </p>
               </div>
               <FontAwesomeIcon
                 icon={faPercent}
-                className="text-2xl text-gray-400"
+                className="text-lg md:text-2xl text-gray-400 ml-2 flex-shrink-0"
               />
             </div>
           </div>
 
           <div className="card">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm mb-1">Average Score</p>
-                <p className="text-2xl font-bold text-black">
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-gray-600 mb-1">Avg Score</p>
+                <p className="text-lg md:text-2xl font-bold text-black">
                   {analytics.averageScore.toFixed(0)}
                 </p>
               </div>
               <FontAwesomeIcon
                 icon={faBullseye}
-                className="text-2xl text-gray-400"
+                className="text-lg md:text-2xl text-gray-400 ml-2 flex-shrink-0"
               />
             </div>
           </div>
 
           <div className="card">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm mb-1">Best Score</p>
-                <p className="text-2xl font-bold text-black">
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-gray-600 mb-1">Best Score</p>
+                <p className="text-lg md:text-2xl font-bold text-black">
                   {analytics.highestScore}
                 </p>
               </div>
               <FontAwesomeIcon
                 icon={faChartLine}
-                className="text-2xl text-gray-400"
+                className="text-lg md:text-2xl text-gray-400 ml-2 flex-shrink-0"
               />
             </div>
           </div>
@@ -205,17 +205,17 @@ export default function AnalyticsPage() {
         <>
           {/* Score Trend */}
           <div className="card">
-            <h3 className="text-lg font-semibold text-black mb-4">
+            <h3 className="text-base md:text-lg font-semibold text-black mb-3 md:mb-4">
               Score Trend Over Time
             </h3>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={200} minHeight={200}>
               <ComposedChart data={trendData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" />
-                <XAxis dataKey="name" />
-                <YAxis yAxisId="left" />
-                <YAxis yAxisId="right" orientation="right" />
-                <Tooltip />
-                <Legend />
+                <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                <YAxis yAxisId="left" tick={{ fontSize: 12 }} />
+                <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 12 }} />
+                <Tooltip contentStyle={{ fontSize: '12px' }} />
+                <Legend wrapperStyle={{ fontSize: '12px' }} />
                 <Bar yAxisId="left" dataKey="marks" fill="#000000" name="Marks" />
                 <Line
                   yAxisId="right"
@@ -230,19 +230,20 @@ export default function AnalyticsPage() {
 
           {/* Efficiency Analysis */}
           <div className="card">
-            <h3 className="text-lg font-semibold text-black mb-4">
+            <h3 className="text-base md:text-lg font-semibold text-black mb-3 md:mb-4">
               Efficiency (Marks/Minute) vs Accuracy
             </h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <ResponsiveContainer width="100%" height={200} minHeight={200}>
+              <ScatterChart margin={{ top: 15, right: 15, bottom: 15, left: 15 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" />
                 <XAxis
                   type="number"
                   dataKey="efficiency"
                   name="Efficiency (Marks/min)"
+                  tick={{ fontSize: 12 }}
                 />
-                <YAxis type="number" dataKey="accuracy" name="Accuracy (%)" />
-                <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                <YAxis type="number" dataKey="accuracy" name="Accuracy (%)" tick={{ fontSize: 12 }} />
+                <Tooltip cursor={{ strokeDasharray: '3 3' }} contentStyle={{ fontSize: '12px' }} />
                 <Scatter
                   name="Tests"
                   data={efficiencyData}
@@ -255,15 +256,15 @@ export default function AnalyticsPage() {
           {/* Subject Performance */}
           {subjectData.length > 0 && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-black mb-4">
+              <h3 className="text-base md:text-lg font-semibold text-black mb-3 md:mb-4">
                 Subject-Wise Average Accuracy
               </h3>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={200} minHeight={200}>
                 <BarChart data={subjectData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip formatter={(value: any) => `${value.toFixed(1)}%`} />
+                  <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 12 }} />
+                  <Tooltip formatter={(value: any) => `${value.toFixed(1)}%`} contentStyle={{ fontSize: '12px' }} />
                   <Bar dataKey="accuracy" fill="#000000" />
                 </BarChart>
               </ResponsiveContainer>
@@ -275,7 +276,7 @@ export default function AnalyticsPage() {
       {/* Statistics Table */}
       {tests.length > 0 && (
         <div className="card">
-          <h3 className="text-lg font-semibold text-black mb-4">
+          <h3 className="text-base md:text-lg font-semibold text-black mb-3 md:mb-4">
             All Tests Summary
           </h3>
           <div className="overflow-x-auto">
