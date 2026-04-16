@@ -148,7 +148,7 @@ src/
 3. **Set up environment variables**:
    Create a `.env.local` file (copy from `.env.example`):
    ```env
-   NEXT_PUBLIC_MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/neet_tracker?retryWrites=true&w=majority
+   MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/neet_tracker?retryWrites=true&w=majority
    NEXTAUTH_SECRET=your_jwt_secret_key_change_this_in_production
    NEXTAUTH_URL=http://localhost:3000
    ```
@@ -250,7 +250,7 @@ Can be extended with:
 
 ### Environment Variables Required
 ```
-NEXT_PUBLIC_MONGODB_URI
+MONGODB_URI
 NEXTAUTH_SECRET
 NEXTAUTH_URL
 ```
