@@ -50,26 +50,26 @@ select:focus {
   @apply outline-none ring-1 ring-offset-0 ring-gray-800;
 }
 
-/* Card base styling */
+/* Card base styling - Premium SaaS */
 .card {
-  @apply bg-white border border-gray-200 rounded-sm p-3 md:p-5;
+  @apply bg-white border border-gray-200 rounded-lg p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow duration-200;
 }
 
 .card:hover {
-  @apply border-gray-300;
+  @apply border-gray-300 shadow-md;
 }
 
-/* Button base styles */
+/* Button base styles - Premium SaaS */
 .btn-primary {
-  @apply px-3 md:px-4 py-2 md:py-2 bg-black text-white rounded-sm font-medium hover:bg-gray-900 active:bg-gray-950 active:scale-95 min-h-10 text-sm md:text-base;
+  @apply px-4 md:px-5 py-2.5 md:py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-900 hover:shadow-md active:bg-gray-950 active:scale-95 min-h-11 text-sm md:text-base transition-all duration-200;
 }
 
 .btn-secondary {
-  @apply px-3 md:px-4 py-2 md:py-2 bg-gray-100 text-black rounded-sm font-medium border border-gray-300 hover:bg-gray-200 active:bg-gray-300 active:scale-95 min-h-10 text-sm md:text-base;
+  @apply px-4 md:px-5 py-2.5 md:py-3 bg-gray-100 text-black rounded-lg font-medium border border-gray-300 hover:bg-gray-200 hover:shadow-sm active:bg-gray-300 active:scale-95 min-h-11 text-sm md:text-base transition-all duration-200;
 }
 
 .btn-outline {
-  @apply px-3 md:px-4 py-2 md:py-2 bg-transparent text-black rounded-sm font-medium border border-gray-800 hover:bg-black hover:text-white active:bg-gray-900 active:scale-95 min-h-10 text-sm md:text-base;
+  @apply px-4 md:px-5 py-2.5 md:py-3 bg-transparent text-black rounded-lg font-medium border border-gray-800 hover:bg-black hover:text-white hover:shadow-md active:bg-gray-900 active:scale-95 min-h-11 text-sm md:text-base transition-all duration-200;
 }
 
 /* Text accessibility */

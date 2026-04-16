@@ -11,6 +11,7 @@ import {
   faSignOutAlt,
   faBars,
   faTimes,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 
@@ -75,7 +76,7 @@ export default function Sidebar() {
     <>
       {/* Mobile Toggle Button */}
       <button
-        className="md:hidden fixed top-4 right-4 z-50 p-2.5 bg-black text-white rounded-sm hover:bg-gray-800 transition-all duration-300 active:scale-95"
+        className="md:hidden fixed top-4 left-4 z-50 p-2.5 bg-black text-white rounded-lg hover:bg-gray-800 transition-all duration-300 active:scale-95"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
       >
@@ -84,8 +85,8 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed right-0 top-0 h-screen w-64 bg-white border-l border-gray-200 p-4 md:p-6 transition-all duration-300 transform z-40 flex flex-col ${
-          isOpen ? 'translate-x-0 shadow-lg' : 'translate-x-full md:translate-x-0 md:shadow-none'
+        className={`fixed md:static left-0 top-0 h-screen w-64 bg-white border-r md:border-r border-l-0 md:border-l-0 border-gray-200 p-4 md:p-6 transition-all duration-300 transform z-40 md:z-auto flex flex-col md:flex-shrink-0 ${
+          isOpen ? 'translate-x-0 shadow-lg' : '-translate-x-full md:translate-x-0 md:shadow-none'
         }`}
       >
         {/* Logo */}
@@ -102,7 +103,7 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-sm transition-all duration-200 active:scale-95 ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 active:scale-95 ${
                 isActive(item.href)
                   ? 'bg-black text-white shadow-md'
                   : 'text-gray-600 hover:bg-gray-100 hover:text-black'
@@ -115,10 +116,21 @@ export default function Sidebar() {
         </nav>
 
         {/* Logout Button */}
-        <div className="pt-4 border-t border-gray-200 mt-auto">
+        <div className="pt-4 border-t border-gray-200 mt-auto space-y-2">
+          <Link
+            href="/profile"
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 active:scale-95 ${
+              isActive('/profile')
+                ? 'bg-black text-white shadow-md'
+                : 'text-gray-600 hover:bg-gray-100 hover:text-black'
+            } font-medium`}
+          >
+            <FontAwesomeIcon icon={faUser} className="w-5 h-5 flex-shrink-0" />
+            <span>Profile</span>
+          </Link>
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-sm bg-gray-100 text-gray-700 hover:bg-gray-200 active:scale-95 transition-all duration-200 font-medium"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 active:scale-95 transition-all duration-200 font-medium"
           >
             <FontAwesomeIcon icon={faSignOutAlt} className="w-5 h-5 flex-shrink-0" />
             <span>Logout</span>

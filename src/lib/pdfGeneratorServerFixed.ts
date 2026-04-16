@@ -1,20 +1,8 @@
-'use client';
+// Server-side PDF generation for email attachments
+// Based on the working client-side generateTestReportPDF logic
+// This doesn't use 'use client' so it can be imported in API routes
 
 import { jsPDF } from 'jspdf';
-
-interface AnalyticsData {
-  totalTestsAttempted: number;
-  averageScore: number;
-  highestScore: number;
-  overallAccuracy: number;
-  subjectWisePerformance: {
-    physics: number;
-    chemistry: number;
-    botany: number;
-    zoology: number;
-  };
-  estimatedAIR?: number;
-}
 
 interface TestData {
   testName: string;
@@ -38,7 +26,7 @@ interface TestData {
   timeTaken?: number;
 }
 
-// Helper function to draw a professional table
+// Helper function to draw a professional table (same as client-side)
 function drawTable(
   doc: jsPDF,
   startY: number,
@@ -131,138 +119,12 @@ function drawTable(
   return yPos + 5;
 }
 
-export function generateOverallReportPDF(
-  analytics: AnalyticsData,
-  tests: TestData[],
-  userName: string
-): void {
-  const doc = new jsPDF('portrait', 'mm', 'a4');
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.getHeight();
-  const margin = 12;
-  let yPosition = margin;
-
-  // HEADER SECTION
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(28);
-  doc.setTextColor(25, 118, 210);
-  doc.text('TEST RESULT', margin, yPosition);
-  yPosition += 10;
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(11);
-  doc.setTextColor(120, 120, 120);
-  doc.text('Overall Performance Report', margin, yPosition);
-  doc.setTextColor(150, 150, 150);
-  doc.setFontSize(9);
-  doc.text(`Generated: ${new Date().toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}`, pageWidth - margin - 45, yPosition);
-  yPosition += 8;
-
-  // Decorative line
-  doc.setDrawColor(25, 118, 210);
-  doc.setLineWidth(1);
-  doc.line(margin, yPosition, pageWidth - margin, yPosition);
-  yPosition += 6;
-
-  // Student info
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-  doc.setTextColor(60, 60, 60);
-  doc.text(`Student: ${userName}`, margin, yPosition);
-  yPosition += 10;
-
-  // KEY METRICS SECTION
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(12);
-  doc.setTextColor(25, 118, 210);
-  doc.text('KEY METRICS', margin, yPosition);
-  yPosition += 7;
-
-  const metricsHeaders = ['Metric', 'Value'];
-  const metricsData = [
-    ['Total Tests Attempted', analytics.totalTestsAttempted.toString()],
-    ['Average Score', `${analytics.averageScore.toFixed(0)}/720`],
-    ['Highest Score', `${analytics.highestScore}/720`],
-    ['Overall Accuracy', `${analytics.overallAccuracy.toFixed(2)}%`],
-  ];
-
-  yPosition = drawTable(doc, yPosition, metricsHeaders, metricsData, [95, 40], margin);
-  yPosition += 4;
-
-  // ESTIMATED AIR SECTION
-  if (analytics.estimatedAIR && analytics.estimatedAIR !== 999999) {
-    doc.setFillColor(25, 118, 210);
-    doc.rect(margin, yPosition, pageWidth - 2 * margin, 18, 'F');
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
-    doc.setTextColor(255, 255, 255);
-    doc.text('Estimated All India Rank (AIR)', margin + 5, yPosition + 6);
-
-    doc.setFontSize(18);
-    doc.setFont('helvetica', 'bold');
-    doc.text(`#${analytics.estimatedAIR.toLocaleString('en-IN')}`, pageWidth - margin - 15, yPosition + 12, { align: 'right' });
-
-    yPosition += 23;
-  }
-
-  // SUBJECT-WISE PERFORMANCE
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(12);
-  doc.setTextColor(25, 118, 210);
-  doc.text('SUBJECT-WISE PERFORMANCE', margin, yPosition);
-  yPosition += 7;
-
-  const subjectHeaders = ['Subject', 'Percentile'];
-  const subjectData = [
-    ['Physics', `${analytics.subjectWisePerformance.physics.toFixed(1)}%`],
-    ['Chemistry', `${analytics.subjectWisePerformance.chemistry.toFixed(1)}%`],
-    ['Botany', `${analytics.subjectWisePerformance.botany.toFixed(1)}%`],
-    ['Zoology', `${analytics.subjectWisePerformance.zoology.toFixed(1)}%`],
-  ];
-
-  yPosition = drawTable(doc, yPosition, subjectHeaders, subjectData, [95, 40], margin);
-  yPosition += 6;
-
-  // RECENT TESTS
-  if (tests.length > 0) {
-    if (yPosition > pageHeight - 55) {
-      doc.addPage();
-      yPosition = margin;
-    }
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.setTextColor(25, 118, 210);
-    doc.text('RECENT TEST ATTEMPTS', margin, yPosition);
-    yPosition += 7;
-
-    const testHeaders = ['Test', 'Date', 'Score', 'Percentile', 'AIR'];
-    const testData = tests.slice(0, 10).map((test) => [
-      test.testName.substring(0, 14),
-      new Date(test.date).toLocaleDateString('en-IN'),
-      `${test.totalMarksObtained ?? 0}`,
-      `${(test.overallPercentile ?? 0).toFixed(1)}%`,
-      test.estimatedAIR && test.estimatedAIR !== 999999
-        ? `#${(test.estimatedAIR / 1000).toFixed(0)}K`
-        : '-',
-    ]);
-
-    yPosition = drawTable(doc, yPosition, testHeaders, testData, [28, 22, 18, 22, 22], margin);
-  }
-
-  // FOOTER
-  doc.setFont('helvetica', 'italic');
-  doc.setFontSize(9);
-  doc.setTextColor(150, 150, 150);
-  const footerText = '📊 Keep practicing consistently to improve your scores!';
-  doc.text(footerText, pageWidth / 2, pageHeight - 8, { align: 'center' });
-
-  // Save PDF
-  doc.save(`NEET_Overall_Report_${new Date().getTime()}.pdf`);
-}
-
-export function generateTestReportPDF(test: TestData, userName: string): void {
+/**
+ * Generate a test report PDF as a Buffer for email attachment
+ * Uses the exact same working logic as the client-side generateTestReportPDF
+ * Returns the PDF as a Buffer instead of downloading it
+ */
+export function generateTestReportPDFBuffer(test: TestData, userName: string): Buffer {
   const doc = new jsPDF('portrait', 'mm', 'a4');
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
@@ -282,7 +144,11 @@ export function generateTestReportPDF(test: TestData, userName: string): void {
   doc.text('Test Performance Report', margin, yPosition);
   doc.setTextColor(150, 150, 150);
   doc.setFontSize(9);
-  doc.text(`Generated: ${new Date().toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}`, pageWidth - margin - 45, yPosition);
+  doc.text(
+    `Generated: ${new Date().toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}`,
+    pageWidth - margin - 45,
+    yPosition
+  );
   yPosition += 8;
 
   // Decorative line
@@ -299,7 +165,11 @@ export function generateTestReportPDF(test: TestData, userName: string): void {
   yPosition += 5;
   doc.text(`Test: ${test.testName}`, margin, yPosition);
   yPosition += 5;
-  doc.text(`Date: ${new Date(test.date).toLocaleDateString('en-IN')}  |  Coaching Test Attempted: ${test.coaching}`, margin, yPosition);
+  doc.text(
+    `Date: ${new Date(test.date).toLocaleDateString('en-IN')}  |  Coaching Test Attempted: ${test.coaching}`,
+    margin,
+    yPosition
+  );
   yPosition += 10;
 
   // OVERALL PERFORMANCE
@@ -392,6 +262,7 @@ export function generateTestReportPDF(test: TestData, userName: string): void {
   const footerText = '💪 Keep working hard to achieve your NEET goals!';
   doc.text(footerText, pageWidth / 2, pageHeight - 8, { align: 'center' });
 
-  // Save PDF
-  doc.save(`NEET_${test.testName.replace(/\s+/g, '_')}_${new Date().getTime()}.pdf`);
+  // Get PDF as buffer instead of saving
+  const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
+  return pdfBuffer;
 }

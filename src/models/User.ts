@@ -24,6 +24,37 @@ const UserSchema = new Schema<IUser>(
       type: Number,
       default: 650,
     },
+    studentName: {
+      type: String,
+      trim: true,
+    },
+    studentEmail: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      validate: {
+        validator: function(v: string) {
+          return !v || v.endsWith('@gmail.com');
+        },
+        message: 'Student email must end with @gmail.com',
+      },
+    },
+    parentName: {
+      type: String,
+      trim: true,
+    },
+    parentEmails: {
+      type: [String],
+      default: [],
+      trim: true,
+      lowercase: true,
+      validate: {
+        validator: function(v: string[]) {
+          return !v || v.every(email => !email || email.endsWith('@gmail.com'));
+        },
+        message: 'All parent emails must end with @gmail.com',
+      },
+    },
   },
   { timestamps: true }
 );

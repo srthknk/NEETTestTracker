@@ -4,6 +4,10 @@ export interface IUser {
   password: string;
   name: string;
   targetMarks: number;
+  studentName?: string;
+  studentEmail?: string;
+  parentName?: string;
+  parentEmails?: string[];
   createdAt: Date;
   updatedAt: Date;
 }

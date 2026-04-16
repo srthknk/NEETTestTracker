@@ -14,6 +14,12 @@ Copy and paste each variable into Vercel's Environment Variables settings:
    Value: https://rankforge.vercel.app
    (Replace 'rankforge' with your actual Vercel project name)
 
+**4. GMAIL_USER** (For test notification emails)
+   Value: sarthaknk08@gmail.com
+
+**5. GMAIL_APP_PASSWORD** (Gmail app-specific password)
+   Value: vguahxjehely ojey
+
 ---
 
 ## How to Add to Vercel:
@@ -25,7 +31,7 @@ Copy and paste each variable into Vercel's Environment Variables settings:
    - Paste it in the "Name" field
    - Copy the Value
    - Paste it in the "Value" field
-   - Make sure to select "Production" environment
+   - Make sure to select BOTH "Production" and "Preview" environments
    - Click "Save"
 4. Redeploy: Go to Deployments → Click "Redeploy" on latest deployment
 
@@ -36,8 +42,20 @@ Copy and paste each variable into Vercel's Environment Variables settings:
 ⚠️  NEXTAUTH_URL must match your Vercel domain exactly
 ⚠️  After Vercel assigns your domain, update NEXTAUTH_URL
 ⚠️  MongoDB URI is already configured to accept connections
-⚠️  Keep the JWT secret secure - never share it publicly
+⚠️  Keep JWT secret secure - never share it publicly
 ⚠️  Don't commit .env.local to Git (already in .gitignore)
+⚠️  Gmail app password is NOT your Google password - it's a special app-specific password
+⚠️  Email notifications only send when test score = 720/720 (perfect)
+
+---
+
+## Email Notifications:
+
+- **Trigger:** When a student scores 720/720 on any test
+- **Recipients:** Student email + Parent email (if both provided in profile)
+- **Content:** Test summary, subject-wise breakdown, PDF report attachment
+- **Cost:** Free (uses Gmail SMTP)
+- **Rate Limit:** 500 emails/day free tier
 
 ---
 
@@ -46,8 +64,10 @@ Copy and paste each variable into Vercel's Environment Variables settings:
 After adding env vars and redeploying:
 1. Visit your Vercel URL
 2. Try logging in with: sarthaknk08@gmail.com / Sarthak@2008
-3. Check that PDF generation works
-4. Verify analytics load correctly
+3. Fill out profile with student & parent emails (end with @gmail.com)
+4. Add a test result with score 720/720
+5. Check both email inboxes for test notification with PDF attachment
+6. Verify analytics load correctly
 
 ---
 

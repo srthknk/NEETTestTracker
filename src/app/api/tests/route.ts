@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
 import Test from '@/models/Test';
+import User from '@/models/User';
 import AnalyticsSummary from '@/models/AnalyticsSummary';
 import { verifyToken } from '@/lib/auth';
 import { calculateAIR } from '@/lib/airCalculator';
+import { sendTestNotification } from '@/lib/emailService';
+import { generateTestReportPDFBuffer } from '@/lib/pdfGeneratorServerFixed';
 
 // Force dynamic rendering for this route
 export const dynamic = 'force-dynamic';
@@ -149,6 +152,46 @@ export async function POST(request: NextRequest) {
     // Verify by querying immediately after save
     const verifyTest = await Test.findById(test._id);
     console.log('Verification - Test retrieved immediately after save:', JSON.stringify(verifyTest?.toObject(), null, 2));
+
+    // Send email notification for every test submission
+    try {
+      console.log('Test submitted! Preparing email notification...');
+      
+      const user = await User.findById(decoded.userId);
+      if (!user) {
+        console.warn('User not found for email notification');
+      } else if (!user.studentEmail && (!user.parentEmails || user.parentEmails.length === 0)) {
+        console.log('No email addresses configured in user profile');
+      } else {
+        console.log('Generating PDF report for email...');
+        const pdfBuffer = generateTestReportPDFBuffer(
+          test.toObject ? test.toObject() : test,
+          user.studentName || user.name || 'Student'
+        );
+
+        console.log('Sending notification emails...');
+        const emailSent = await sendTestNotification({
+          studentEmail: user.studentEmail || '',
+          studentName: user.studentName || 'Student',
+          parentEmails: user.parentEmails || [],
+          parentName: user.parentName || undefined,
+          testName: body.testName,
+          totalMarks: totalMarksObtained,
+          testData: test.toObject ? test.toObject() : test,
+          pdfBuffer,
+        });
+
+        if (emailSent) {
+          console.log('✅ Email notifications sent successfully');
+        } else {
+          console.warn('⚠️ Email notifications could not be sent');
+        }
+      }
+    } catch (emailError: any) {
+      console.error('❌ Error sending email notification:', emailError.message);
+      // Don't fail the test creation if email fails
+      // The test is already saved, email is just a bonus feature
+    }
 
     // Update analytics
     const tests = await Test.find({ userId: decoded.userId });
