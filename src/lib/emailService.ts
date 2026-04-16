@@ -164,7 +164,7 @@ export const sendTestNotification = async (params: SendTestNotificationParams) =
 
                   <p style="font-size: 16px;">Dear ${parentName || 'Parent'},</p>
 
-                  <p>This is to notify you that <strong>${studentName}</strong> has completed a Practice Test on the RankForge NEET Preparation Tracker platform.</p>
+                  <p>This is to notify you that <strong>${studentName}</strong> has completed a Practice Test on the Sarthak's NEET Preparation Tracker platform.</p>
 
                   <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
                     <h2 style="color: #000; margin-top: 0;">Test Details</h2>
@@ -197,7 +197,7 @@ export const sendTestNotification = async (params: SendTestNotificationParams) =
                   </div>
 
                   <div style="text-align: center; color: #666; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
-                    <p>This is an automated notification from RankForge NEET Tracker</p>
+                    <p>This is an automated notification from Sarthak's NEET Tracker</p>
                     <p>Best wishes for ${studentName}'s NEET preparation! 🎓</p>
                   </div>
                 </div>
