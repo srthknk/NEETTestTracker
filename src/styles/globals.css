@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-black font-sans;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-600;
+}
+
+/* Smooth transitions */
+button,
+a,
+input,
+textarea,
+select {
+  @apply transition-all duration-200 ease-out;
+}
+
+/* Focus styles */
+input:focus,
+textarea:focus,
+select:focus {
+  @apply outline-none ring-1 ring-offset-0 ring-gray-800;
+}
+
+/* Card base styling */
+.card {
+  @apply bg-white border border-gray-200 rounded-sm p-5;
+}
+
+.card:hover {
+  @apply border-gray-300;
+}
+
+/* Button base styles */
+.btn-primary {
+  @apply px-4 py-2 bg-black text-white rounded-sm font-medium hover:bg-gray-900 active:bg-gray-950;
+}
+
+.btn-secondary {
+  @apply px-4 py-2 bg-gray-100 text-black rounded-sm font-medium border border-gray-300 hover:bg-gray-200 active:bg-gray-300;
+}
+
+.btn-outline {
+  @apply px-4 py-2 bg-transparent text-black rounded-sm font-medium border border-gray-800 hover:bg-black hover:text-white active:bg-gray-900;
+}
+
+/* Text accessibility */
+.text-primary {
+  @apply text-black;
+}
+
+.text-secondary {
+  @apply text-gray-600;
+}
+
+.text-tertiary {
+  @apply text-gray-400;
+}
