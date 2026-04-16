@@ -75,7 +75,7 @@ export default function Sidebar() {
     <>
       {/* Mobile Toggle Button */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2.5 bg-black text-white rounded-sm hover:bg-gray-800 transition-colors active:scale-95"
+        className="md:hidden fixed top-4 right-4 z-50 p-2.5 bg-black text-white rounded-sm hover:bg-gray-800 transition-all duration-300 active:scale-95"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
       >
@@ -84,8 +84,8 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 p-4 md:p-6 transition-all duration-300 transform z-40 ${
-          isOpen ? 'translate-x-0 shadow-lg' : '-translate-x-full md:translate-x-0 md:shadow-none'
+        className={`fixed right-0 top-0 h-screen w-64 bg-white border-l border-gray-200 p-4 md:p-6 transition-all duration-300 transform z-40 ${
+          isOpen ? 'translate-x-0 shadow-lg' : 'translate-x-full md:translate-x-0 md:shadow-none'
         }`}
       >
         {/* Logo */}
