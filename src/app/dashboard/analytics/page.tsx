@@ -247,7 +247,6 @@ export default function AnalyticsPage() {
                   name="Tests"
                   data={efficiencyData}
                   fill="#000000"
-                  size={50}
                 />
               </ScatterChart>
             </ResponsiveContainer>
