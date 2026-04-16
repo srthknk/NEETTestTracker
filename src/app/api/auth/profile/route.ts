@@ -3,6 +3,9 @@ import dbConnect from '@/lib/dbConnect';
 import User from '@/models/User';
 import { verifyToken } from '@/lib/auth';
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '');

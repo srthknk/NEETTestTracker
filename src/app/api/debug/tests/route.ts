@@ -3,6 +3,9 @@ import dbConnect from '@/lib/dbConnect';
 import Test from '@/models/Test';
 import { verifyToken } from '@/lib/auth';
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+
 /**
  * Debug endpoint to check all tests in database for current user
  * GET /api/debug/tests
