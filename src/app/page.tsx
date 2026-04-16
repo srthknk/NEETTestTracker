@@ -8,7 +8,7 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 
 export default function Home() {
   const router = useRouter();
-  const [email, setEmail] = useState('admin@neet.com');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -82,7 +82,7 @@ export default function Home() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@neet.com"
+              placeholder="Enter your email"
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:ring-1 focus:ring-black focus:border-transparent"
             />
@@ -111,13 +111,6 @@ export default function Home() {
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
-
-          {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-sm text-sm text-gray-700">
-            <p className="font-semibold mb-2">Demo Credentials:</p>
-            <p className="mb-1">Email: <span className="font-mono font-semibold">admin@neet.com</span></p>
-            <p>Password: <span className="font-mono font-semibold">admin123</span></p>
-          </div>
         </form>
       </div>
     </div>
